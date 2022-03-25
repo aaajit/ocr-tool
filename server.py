@@ -33,10 +33,12 @@ async def bulk_extract_text(request: Request, bg_task: BackgroundTasks):
 
 @app.get("/api/v1/bulk_output/{task_id}")
 async def bulk_output(task_id):
-    text_map = {}
-    for file_ in os.listdir(task_id):
-        if file_.endswith("txt"):
-            text_map[file_] = open(os.path.join(task_id, file_)).read()
+    text_map = {
+        file_: open(os.path.join(task_id, file_)).read()
+        for file_ in os.listdir(task_id)
+        if file_.endswith("txt")
+    }
+
     return {"task_id": task_id, "output": text_map}
 
 def _save_file_to_disk(uploaded_file, path=".", save_as="default"):

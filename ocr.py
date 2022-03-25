@@ -37,7 +37,7 @@ async def read_images_from_dir(dir_path, lang='eng', write_to_file=False):
             converted_text[os.path.join(dir_path, file_)] = text
     if write_to_file:
         for file_path, text in converted_text.items():
-            _write_to_file(text, os.path.splitext(file_path)[0] + ".txt")
+            _write_to_file(text, f'{os.path.splitext(file_path)[0]}.txt')
     return converted_text
 
 def _write_to_file(text, file_path):
